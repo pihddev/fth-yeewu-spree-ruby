@@ -10,7 +10,7 @@ node {
 			{
 				    docker.withRegistry('https://registry.hub.docker.com', 'pih-dockerhub-id') {
 
-				        def customImage = docker.build("fth-yeewu-spree-ruby-test/spree-image:${env.BUILD_ID}")
+				        def customImage = docker.build("pihddev/fth-yeewu-spree-ruby-test/spree-image:${env.BUILD_ID}")
 
 				        /* Push the container to the custom Registry */
 				        customImage.push()
