@@ -20,7 +20,7 @@ services:
       - 'redis'
     build:
       context: .
-      dockerfile: Dockerfile.development
+      dockerfile: Dockerfile
     command: bash -c "rm -rf tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0 -p 3000"
     ports:
       - "3000:3000"
@@ -37,7 +37,7 @@ services:
   webpacker:
     build:
       context: .
-      dockerfile: Dockerfile.development
+      dockerfile: Dockerfile
     environment:
       - NODE_ENV=development
       - RAILS_ENV=development
@@ -53,7 +53,7 @@ services:
       - 'redis'
     build:
       context: .
-      dockerfile: Dockerfile.development
+      dockerfile: Dockerfile
     command: bundle exec sidekiq -C config/sidekiq.yml
     volumes:
       - 'bundle_cache:/bundle'
