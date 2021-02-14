@@ -1,11 +1,21 @@
 node {
-    checkout scm
+		stage('Checkout') 
+		{
+			checkout scm
+    	}	
+    
+    	dir("spree_dev-main")
+    	{
+    		stage('Docker Build Publish') 
+			{
+				    docker.withRegistry('https://registry.hub.docker.com', 'pih-dockerhub-id') {
 
-    docker.withRegistry('https://registry.hub.docker.com', 'pih-dockerhub-id') {
+				        def customImage = docker.build("fth-yeewu-spree-ruby-test/spree-image:${env.BUILD_ID}")
 
-        def customImage = docker.build("fth-yeewu-spree-ruby-test/spree-image:${env.BUILD_ID}")
+				        /* Push the container to the custom Registry */
+				        customImage.push()
+				    }
+    		}	
+    	}
 
-        /* Push the container to the custom Registry */
-        customImage.push()
-    }
 }
